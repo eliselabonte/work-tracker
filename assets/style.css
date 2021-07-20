@@ -1,0 +1,117 @@
+html    {
+    --dark-blue: rgb(42, 49, 80);
+    --dark-green: rgb(31, 80, 67);
+    --light-green: rgb(195, 215, 131);
+    --soft-pink: rgb(233, 219, 210);
+    --gray: rgb(160, 160, 160);
+    --forest-green:rgb(152, 175, 120);
+    --forest-green-transparent:rgb(152, 175, 120, 0.6);
+    --header-transition:linear-gradient(125deg, rgb(31, 80, 67)0%, rgb(195, 215, 131))50%;
+    --body-transition: linear-gradient(rgb(42, 49, 80), rgb(108, 167, 142));
+    --body-font: 'Dosis', sans-serif;;
+    --header-font: 'Zilla Slab', serif;
+}
+
+body    {
+    background: var(--dark-blue);
+}
+
+textarea.form-control    {
+    background-color: var(--soft-pink);
+    border:2px solid var(--dark-blue);
+    font-family: var(--body-font);
+}
+
+div.input-group {
+    margin: 2px;
+}
+
+header.jumbotron    {
+    background: var(--header-transition);
+    padding-bottom: 30px;
+    padding-top: 30px;
+}
+
+h1  {
+    font-size:40px;
+    font-family: var(--header-font);
+}
+
+span.input-group-text, div.col-8 > p.lead, p.clock   {
+    font-family: var(--body-font);
+    font-size: 20px;
+}
+
+header.jumbotron h1, p {
+    color:white;
+}
+
+p.clock {
+    font-size: 60px;
+    vertical-align: center;
+}
+
+div.col-4   {
+    justify-content: center;
+    align-items: center;
+}
+
+div.container   {
+    margin-bottom:20px;
+}
+
+span.input-group-text   {
+    width:110px;
+    background-color: var(--forest-green);
+    border:2px solid var(--dark-blue);
+    border-right:none;
+}
+
+button.btn  {
+    background-color: var(--forest-green);
+    border:2px solid var(--dark-blue);
+    border-left:none;
+    border-radius:0px;
+}
+
+button.btn.remove   {
+    border-radius:0px 5px 5px 0px;
+}
+
+button.removeAllEntriesButton   {
+    height:100px;
+    width:100px;
+    border-radius: 50%;
+    font-family: var(--body-font);
+    border:none;
+}
+
+button.removeAllEntriesButton:hover {
+    background-color: brown;
+}
+
+div.container   {
+    margin-right:0px;
+    margin-left: 20px;
+}
+
+div.outer-container-with-remove-button   {
+    display:flex;
+    flex-direction:row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+div.container > div.input-group > button.hover:hover  {
+    background-color: var(--forest-green-transparent);
+}
+
+img.save-img, img.remove-img {
+    height:50px;
+    width:auto;
+}
+
+textarea.gray    {
+    background-color: var(--gray);
+    color:black;   
+}
