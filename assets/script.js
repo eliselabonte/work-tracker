@@ -1,13 +1,6 @@
-
-
-// const getLocalStorage = key => localStorage.getItem(key)
-function getLocalStorage(key) {
-    localStorage.getItem(key)
-}
-// const setLocalStorage = (key, data) => localStorage.setItem(key, data)
-
 $(function () {
 
+const $button = $('button');
 const $saveButton = $('.save');
 const $removeThisEntryButton = $('.remove');
 const $removeAllEntriesButton = $('.removeAllEntriesButton');
@@ -17,6 +10,10 @@ const $clockDisplay = $('#currentTime');
 let currentTime = dayjs();
 
 const availableHours = [ 9, 10, 11, 12, 13, 14, 15, 16 ];
+
+function setLocalStorage(key, value)   {
+    localStorage.setItem(key, value)
+};
 
 // if the hour for a row has already passed, change its color to gray
 function colorChangeRows()  {
@@ -29,6 +26,8 @@ function colorChangeRows()  {
     })
 };
 
+// I'd like to add a function here that clears local storage each day at midnight
+
 // check storage for data, enter data into corresponding time blocks 
 function pullAllFromStorage()  {
     availableHours.forEach((hour) => { 
@@ -36,47 +35,36 @@ function pullAllFromStorage()  {
         const $taskDetails = $(`#${hour}`);
         $taskDetails.text(data);
     }) 
-    
-            // const $taskDetails = $('#' + hour);
-        // const name = 'susan'
-        //     `hello my name is ${name}`
-        //     'hello my name is' + name
 };
-     
-$saveButton.click(function (e)   {
 
-    const $thingClicked = $(e.target);
-    const $correspondingTextArea = $thingClicked.closest('button').siblings('textarea');
+
+     
+// when a button is clicked, check the type
+$button.click(function(e)    {
+
+    const $thingClicked = $(e.target).closest('button');
+    const $correspondingTextArea = $thingClicked.siblings('textarea');
     const $newEntryKey = $correspondingTextArea.attr('data-index');
     const $newEntryValue = $correspondingTextArea.val();
-    
-    // save in local storage with corresponding time block
-    localStorage.setItem($newEntryKey, $newEntryValue)
-
-});
-
-$removeThisEntryButton.click(function (e){
-    
-    const $thingClicked = $(e.target);
-    const $taskDetailsArea = $thingClicked.closest('button').siblings('textarea');
-    const $entryKey = $taskDetailsArea.attr('data-index');
-
-    localStorage.setItem($entryKey, '');
-
-    $taskDetailsArea.val('');
-
-});
-
-$removeAllEntriesButton.click(function () {
-
     const $taskInputArea = $('textarea');
-    $taskInputArea.val('');
-    localStorage.clear();
 
+    // for save buttons, save the data in local storage
+    if ($thingClicked.is($saveButton)) {
+        setLocalStorage($newEntryKey, $newEntryValue)
+    }
+    // for removeThis buttons, clear the text area and enter an empty string into the value of the corresponding local storage
+    if ($thingClicked.is($removeThisEntryButton))   {
+        setLocalStorage($newEntryKey, '');
+        $correspondingTextArea.val('');
+    }
+    // for the removeAll button, clear local storage and all text areas.
+    if ($thingClicked.is($removeAllEntriesButton))   {
+        $taskInputArea.val('');
+        localStorage.clear();
+    }
+})
 
-});
-
-// display the timer
+// display the timer using dayjs
 function keepTime() {
 
     currentTime = dayjs();
@@ -86,7 +74,7 @@ function keepTime() {
     $dayDisplay.text(day);
     $clockDisplay.text(time);
 
-}
+};
 
 setInterval(keepTime, 1000);
 
